@@ -94,6 +94,7 @@ module AMQP
     def unbind
       log 'disconnected'
       @connected = false
+      Thread.list.each { |t| t[:mq] = nil }
       EM.next_tick{ @on_disconnect.call }
     end
 
